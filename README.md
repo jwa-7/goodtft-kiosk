@@ -2,13 +2,15 @@
 
 > Tested with *Raspbian GNU/Linux 10 (buster)*
 
-## Turorials
+## Original Turorials
 
-* <https://avikdas.com/2018/12/31/setting-up-lcd-screen-on-raspberry-pi.html>
+_*In that order*_
 
-* <https://desertbot.io/blog/raspberry-pi-touchscreen-kiosk-setup>
+* [Setting up an LCD screen on the Raspberry Pi, 2019 edition](https://avikdas.com/2018/12/31/setting-up-lcd-screen-on-raspberry-pi.html)
 
-* <https://www.raspberrypi.org/forums/viewtopic.php?t=238060>
+* [Raspberry Pi Touchscreen Kiosk Setup | desertbot.io](https://desertbot.io/blog/raspberry-pi-touchscreen-kiosk-setup)
+
+* [GoodTFT 3.5" screen from Aliexpress - Raspberry Pi Forums](https://www.raspberrypi.org/forums/viewtopic.php?t=238060)
 
 ## Setup
 
@@ -54,7 +56,8 @@
 
 #### 2. Add the copied boot overly to the `config.txt`
 
-* Open `/boot/config.txt` with a text editor (e.g. vi or nano) and add the following at the end:
+* Open `/boot/config.txt` with a text editor (e.g. vi or nano) and
+add the following at the end:
 
 ```;
   #Adjust Rotation if needed
@@ -83,4 +86,19 @@
   dtparam=spi=on
   dtparam=i2c_arm=on
   enable_uart=1
+```
+
+### 4. Configure command line
+
+* Open `/boot/cmdline.txt` with a text editor (e.g. vi or nano)
+and add the following at the end of the line:
+
+```;
+  fbcon=map:10 fbcon=font:ProFont6x11
+```
+
+### 5. Reboot the Raspberry Pi
+
+```;
+  sudo reboot
 ```
