@@ -2,6 +2,10 @@
 
 > Tested with *Raspbian GNU/Linux 10 (buster)*
 
+## To Do
+
+- [ ] \(Optional) Add good powersaving options (screen only)
+
 ## Setup
 
 ### 1. Prepare Raspberry Pi
