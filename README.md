@@ -4,8 +4,10 @@
 
 ## To Do
 
-- [ ] \(Optional) Add good powersaving options (screen only)
 - [ ] Local web-server
+- [ ] Cron Reboot every day
+  - [Cron Setup](http://www.vk3erw.com/index.php/16-software/58-raspberry-pi-how-to-periodic-reboot-via-cron)
+- [ ] \(Optional) Add good powersaving options (screen only)
 
 ___
 
@@ -162,7 +164,7 @@ sudo apt-get install -y --no-install-recommends chromium-browser
 - Using the env-var `$KIOSK_URL`
   - Will be created in the next step
 
-```
+```bash
   chromium-browser --noerrdialogs --disable-infobars --incognito --touch-events --kiosk $KIOSK_URL
 ```
 
@@ -170,13 +172,13 @@ sudo apt-get install -y --no-install-recommends chromium-browser
 
 - Open `/etc/xdg/openbox/autostart` with a text editor (e.g. vi or nano) and add the following at the end of the file:
 
-```
+```bash
   export KIOSK_URL=https://google.com
 ```
 
 - (Optional) Create a symbolic link to the env-var file in the home directory for easy editing
 
-```
+```bash
   ln -s /etc/xdg/openbox/environment ~/env-var
 ```
 
@@ -196,13 +198,13 @@ sudo apt-get install -y --no-install-recommends chromium-browser
 
 3. Validate the file
 
-```
+```bash
   source ~/.bash_profile
 ```
 
 4. Reboot if no errors occured
 
-```
+```bash
   sudo reboot
 ```
 
