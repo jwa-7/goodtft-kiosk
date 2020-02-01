@@ -4,6 +4,7 @@
 
 ## To Do
 
+- [ ] Test `/usr/share/X11/xorg.conf.d/99-fbturbo.conf` for unnecessary lines
 - [ ] Local web-server
 - [ ] Cron Reboot every day
   - [Cron Setup](http://www.vk3erw.com/index.php/16-software/58-raspberry-pi-how-to-periodic-reboot-via-cron)
@@ -18,6 +19,8 @@ ___
 1. Install Raspbian Lite
     - Make sure *SSH* is enabled
       - Create an empty file named *ssh* in the `boot` partition
+
+3. Connect via SSH with the username __pi__ - the standard password is "_raspberry_"
 
 2. Update
 
@@ -206,6 +209,58 @@ sudo apt-get install -y --no-install-recommends chromium-browser
 
 ```bash
   sudo reboot
+```
+
+### 11. Configure Xorg
+
+1. Create `99-fbturbo.conf` in the `/usr/share/X11/xorg.conf.d` directory if it's not existing
+
+```bash
+  touch /usr/share/X11/xorg.conf.d/99-fbturbo.conf
+```
+
+2. Open `/usr/share/X11/xorg.conf.d/99-fbturbo.conf` with a text editor (e.g. vi or nano) and add the following at the end of the file:
+
+```
+Section "InputClass"
+   Identifier "calibration"
+   MatchProduct "ADS7846 Touchscreen"
+   # Hat trick to get the pen to work properly on the touch screen, rotate 90 degrees clockwise:
+   Option "TransformationMatrix" "0 -1 1 1 0 0 0 0 1"
+   # Don't use libinput but evdev for the touch screen and the pen so calibration works:
+   Driver "evdev"
+   Option "Calibration"   "3936 227 268 3880"
+   Option "InvertY" "true"
+   #Option "InvertX" "true"
+   # Right mouse button is long press with pen:
+   Option "EmulateThirdButton" "1"
+   Option "EmulateThirdButtonTimeout" "750"
+   Option "EmulateThirdButtonMoveThreshold" "30"
+EndSection
+
+Section "Device"
+   # WaveShare SpotPear 3.5", framebuffer 1
+   Identifier "uga"
+   driver "fbdev"
+   Option "fbdev" "/dev/fb1"
+   Option "ShadowFB" "off"
+EndSection
+
+Section "Monitor"
+   # Primary monitor. WaveShare SpotPear 480x320
+   Identifier "WSSP"
+EndSection
+
+Section "Screen"
+   Identifier "primary"
+   Device "uga"
+   Monitor "WSSP"
+EndSection
+
+Section "ServerLayout"
+   Identifier "default"
+   Screen 0 "primary"
+EndSection
 ```
 
 ___
