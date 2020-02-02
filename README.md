@@ -361,7 +361,7 @@ ___
 
 3. Access that host/ip via a web browser from a device in the same network and hope it's showing the `This is a TEST!`-Heading :pray:
 
-> ![Example of the test site](./rm-assets/lighttpd_thisIsATest.png)
+![Example of the test site](./rm-assets/lighttpd_thisIsATest.png)
 
 ### 3. Install php mod
 
