@@ -6,7 +6,12 @@
 
 - [ ] Test `/usr/share/X11/xorg.conf.d/99-fbturbo.conf` for unnecessary lines
 - [ ] Local web-server
-- [ ] Cron Reboot every day
+  - Lighttpd?
+    - \+ PHP?
+  - Install as?
+    - Bare metal (kiosk will use localhost)
+    - Container (Docker)
+- [X] Cron Reboot every day
   - [Cron Setup](http://www.vk3erw.com/index.php/16-software/58-raspberry-pi-how-to-periodic-reboot-via-cron)
 - [ ] \(Optional) Add good powersaving options (screen only)
 
@@ -227,6 +232,8 @@ Section "InputClass"
    MatchProduct "ADS7846 Touchscreen"
    # Hat trick to get the pen to work properly on the touch screen, rotate 90 degrees clockwise:
    Option "TransformationMatrix" "0 -1 1 1 0 0 0 0 1"
+   # Touch screen rotation by 90deg
+   #Option "TransformationMatrix" "0 1 0 -1 0 1 0 0 1"
    # Don't use libinput but evdev for the touch screen and the pen so calibration works:
    Driver "evdev"
    Option "Calibration"   "3936 227 268 3880"
@@ -242,6 +249,7 @@ Section "Device"
    # WaveShare SpotPear 3.5", framebuffer 1
    Identifier "uga"
    driver "fbdev"
+   # Switch to /dev/fb0 for default output (usually hdmi)
    Option "fbdev" "/dev/fb1"
    Option "ShadowFB" "off"
 EndSection
@@ -262,6 +270,41 @@ Section "ServerLayout"
    Screen 0 "primary"
 EndSection
 ```
+
+3. Install evdev driver
+
+```bash
+  sudo apt-get install -y xserver-xorg-input-evdev
+```
+
+4. Reboot the Raspberry Pi
+
+  The Raspberry basic configuration ends after the reboot. In the next steps a local webserver will be installed, so it doesn't rely on an internet connection.
+
+### 12. Configure Cronjob for scheduled reboot
+
+1. Create a cron file `scheduledreboots` in `/etc/cron.d/`
+
+```bash
+  touch /etc/cron.d/scheduledreboots
+```
+
+2. Open `/etc/cron.d/scheduledreboots` with a text editor (e.g. vi or nano) and add the following:
+
+```
+  # m h dom mon dow user command
+  30 3 * * * root /sbin/shutdown -r now
+```
+
+- The Raspberry will now restart every night at 3:30am
+
+3. Reboot the Raspberry Pi to make sure *Cron* picked up the new job file.
+
+```bash
+  sudo reboot
+```
+
+- The Raspberry basic configuration ends after the reboot. In the next steps a local webserver will be installed, so it doesn't rely on an internet connection.
 
 ___
 
