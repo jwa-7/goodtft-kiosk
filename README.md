@@ -8,16 +8,17 @@
 - [ ] Local web-server
   - Lighttpd?
     - \+ PHP?
-  - Install as?
-    - Bare metal (kiosk will use localhost)
-    - Container (Docker)
+    - Install as?
+      - Bare metal (kiosk will use localhost)
+      - Container (Docker)
+  - [ ] FTP-Server
 - [X] Cron Reboot every day
   - [Cron Setup](http://www.vk3erw.com/index.php/16-software/58-raspberry-pi-how-to-periodic-reboot-via-cron)
 - [ ] \(Optional) Add good powersaving options (screen only)
 
 ___
 
-## Setup
+## Setup Kiosk
 
 ### 1. Prepare Raspberry Pi
 
@@ -304,7 +305,63 @@ EndSection
   sudo reboot
 ```
 
-- The Raspberry basic configuration ends after the reboot. In the next steps a local webserver will be installed, so it doesn't rely on an internet connection.
+- The Raspberry Pi basic configuration ends after the reboot. In the next steps a local webserver will be installed, so it doesn't rely on an internet connection.
+
+___
+
+## Setup lighttpd web server
+
+### 1. Prepare Raspberry Pi (again)
+
+1. Update
+
+```bash
+  sudo apt-get update && sudo apt-get upgrade
+```
+
+2. Make sure to remove apache
+
+```bash
+  sudo apt-get remove apache2
+```
+
+### 2. Install and test lighttpd
+
+1. Install lighttpd
+
+```bash
+  sudo apt-get install lighttpd
+```
+
+4. Create `index.html` in the `/var/www/html/` directory if it's not existing
+
+```bash
+  touch /var/www/html/index.html
+```
+
+5. Open `/var/www/html/index.html` with a text editor (e.g. vi or nano) and add the following code for testing purposes:
+
+```html
+  <h1>This is a TEST!</h1>
+```
+
+6. Get your hostname or ip adress
+
+    - IP Adress: Look for `eth0` or `wlan0`
+
+    ```bash
+    ip a
+    ```
+
+    - Hostname
+
+    ```bash
+      hostname -I
+    ```
+
+3. Access that host/ip via a web browser from a device in the same network and hope it's showing the `This is a TEST!`-Heading :pray:
+
+### 3. Install php mod
 
 ___
 
@@ -313,5 +370,6 @@ ___
 - [Setting up an LCD screen on the Raspberry Pi, 2019 edition](https://avikdas.com/2018/12/31/setting-up-lcd-screen-on-raspberry-pi.html)
 - [Raspberry Pi Touchscreen Kiosk Setup | desertbot.io](https://desertbot.io/blog/raspberry-pi-touchscreen-kiosk-setup)
 - [GoodTFT 3.5" screen from Aliexpress - Raspberry Pi Forums](https://www.raspberrypi.org/forums/viewtopic.php?t=238060)
+- [Lighttp and PHP 7 on Raspbian | bitnuts.de](https://bitnuts.de/articles/install_lighttp_on_raspbian.html)
 
 _*(Used in that order)*_
