@@ -212,7 +212,7 @@ sudo apt-get install -y --no-install-recommends chromium-browser
 
 ### 9. Edit Openbox env
 
-- Open `/etc/xdg/openbox/autostart` with a text editor (e.g. vi or nano) and add the following at the end of the file:
+- Open `/etc/xdg/openbox/environment` with a text editor (e.g. vi or nano) and add the following at the end of the file:
 
 ```bash
   export KIOSK_URL=https://google.com
