@@ -2,6 +2,8 @@
 
 > Tested with *Raspbian GNU/Linux 10 (buster)*
 
+___
+
 - [Raspberry Pi & 3.5" TFT & Chromium as Kiosk](#raspberry-pi--35-tft--chromium-as-kiosk)
   - [To Do](#to-do)
   - [Setup Kiosk](#setup-kiosk)
