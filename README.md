@@ -4,12 +4,12 @@
 
 ## To Do
 
-- [ ] Test `/usr/share/X11/xorg.conf.d/99-fbturbo.conf` for unnecessary lines
-- [ ] Local web-server
-  - Lighttpd?
-    - \+ PHP?
+- [X] Test `/usr/share/X11/xorg.conf.d/99-fbturbo.conf` for unnecessary lines
+- [X] Local web-server
+  - Lighttpd
+    - \+ PHP
     - Install as?
-      - Bare metal (kiosk will use localhost)
+      - [X] Bare metal (kiosk will use localhost)
       - Container (Docker)
   - [ ] FTP-Server
 - [X] Cron Reboot every day
@@ -361,9 +361,86 @@ ___
 
 3. Access that host/ip via a web browser from a device in the same network and hope it's showing the `This is a TEST!`-Heading :pray:
 
-![Example of the test site](./rm-assets/lighttpd_thisIsATest.png)
+> ![Example of the test site](./images/lighttpd_thisIsATest.png)
 
 ### 3. Install php mod
+
+1. Install:
+
+```bash
+  sudo apt-get install php7.3-fpm php7.3-mbstring php7.3-mysql php7.3-curl php7.3-gd php7.3-curl php7.3-zip php7.3-xml -y
+```
+
+2. Enable mods in lighttpd
+
+```bash
+  sudo lighttpd-enable-mod fastcgi
+  sudo lighttpd-enable-mod fastcgi-php
+```
+
+3. Edit the lighttpd fastcgi config
+
+    - Open `/etc/lighttpd/conf-available/15-fastcgi-php.conf` with a text editor (e.g. vi or nano) and replace the contents with:
+
+    ```conf
+      # -*- depends: fastcgi -*-
+      # /usr/share/doc/lighttpd/fastcgi.txt.gz
+      # http://redmine.lighttpd.net/projects/lighttpd/wiki/Docs:ConfigurationOptions#mod_fastcgi-fastcgi
+
+      ## Start an FastCGI server for php (needs the php5-cgi package)
+      fastcgi.server += ( ".php" =>
+              ((
+                      "socket" => "/var/run/php/php7.3-fpm.sock",
+                      "broken-scriptfilename" => "enable"
+              ))
+      )
+    ```
+
+4. Reload the lighttpd service
+
+```bash
+  sudo service lighttpd force-reload
+```
+
+5. Rename the `.html`file to `index.php`
+
+```bash
+  sudo mv /var/www/html/index.html /var/www/html/index.php
+```
+
+6. Open `/var/www/html/index.php` with a text editor (e.g. vi or nano) and place the following in a new line:
+
+```php
+  <?php phpinfo(); ?>
+```
+
+- The file should now look like this:
+
+```php
+  <h1>This is a  TEST!</h1>
+  <?php phpinfo(); ?>
+```
+
+7. Access that host/ip via a web browser from a device in the same network and hope it's showing the the php-info :pray:
+
+> ![Example of the test site with enabled php](./images/lighttpd_phpTest.png)
+
+### 4. Show local webserver on the 3.5" kiosk
+
+1. Open `/etc/xdg/openbox/environment` with a text editor (e.g. vi or nano). If the symlink is present it can be used:
+
+```bash
+  sudo nano ~/env-var
+```
+
+2. Change the value of the last uncommented line, the env var for openbox, to see the local webserver on the raspberry pi's touchscreen. It should look like this:
+
+```bash
+  # Probably some comments
+  # More comments
+
+  export KIOSK_URL=localhost
+```
 
 ___
 
@@ -372,6 +449,6 @@ ___
 - [Setting up an LCD screen on the Raspberry Pi, 2019 edition](https://avikdas.com/2018/12/31/setting-up-lcd-screen-on-raspberry-pi.html)
 - [Raspberry Pi Touchscreen Kiosk Setup | desertbot.io](https://desertbot.io/blog/raspberry-pi-touchscreen-kiosk-setup)
 - [GoodTFT 3.5" screen from Aliexpress - Raspberry Pi Forums](https://www.raspberrypi.org/forums/viewtopic.php?t=238060)
-- [Lighttp and PHP 7 on Raspbian | bitnuts.de](https://bitnuts.de/articles/install_lighttp_on_raspbian.html)
+- [How to setup Raspberry Pi Lighttpd - Pi My Life Up](https://pimylifeup.com/raspberry-pi-lighttpd/)
 
 _*(Used in that order)*_
