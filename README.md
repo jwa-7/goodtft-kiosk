@@ -2,7 +2,7 @@
 
 > Tested with *Raspbian GNU/Linux 10 (buster)*
 >
-> Filesctructure in [/src](./src) :exclamation:
+> Filesctructure in [/src](./src):exclamation:
 
 ___
 
