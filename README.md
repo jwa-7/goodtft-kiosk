@@ -2,6 +2,36 @@
 
 > Tested with *Raspbian GNU/Linux 10 (buster)*
 
+- [Raspberry Pi & 3.5" TFT & Chromium as Kiosk](#raspberry-pi--35-tft--chromium-as-kiosk)
+  - [To Do](#to-do)
+  - [Setup Kiosk](#setup-kiosk)
+    - [1. Prepare Raspberry Pi](#1-prepare-raspberry-pi)
+    - [2. Use privided Repository](#2-use-privided-repository)
+    - [3. Configure Boot overlays](#3-configure-boot-overlays)
+      - [1. Enable Interfaces](#1-enable-interfaces)
+      - [2. Add the copied boot overly to the `config.txt`](#2-add-the-copied-boot-overly-to-the-configtxt)
+    - [4. Configure command line](#4-configure-command-line)
+    - [5. Reboot the Raspberry Pi](#5-reboot-the-raspberry-pi)
+    - [6. Enable Interfaces](#6-enable-interfaces)
+    - [7. Install GUI components and Chromium](#7-install-gui-components-and-chromium)
+      - [1. Minimun GUI components](#1-minimun-gui-components)
+      - [2. Chromium](#2-chromium)
+    - [8. Edit Openbox config](#8-edit-openbox-config)
+      - [1. Config power management](#1-config-power-management)
+      - [2. Supress error messages in case of chromium crashing](#2-supress-error-messages-in-case-of-chromium-crashing)
+      - [3. Configure Chromium start flags](#3-configure-chromium-start-flags)
+    - [9. Edit Openbox env](#9-edit-openbox-env)
+    - [10. Configure X server to start on boot](#10-configure-x-server-to-start-on-boot)
+    - [11. Configure Xorg](#11-configure-xorg)
+    - [12. Configure Cronjob for scheduled reboot](#12-configure-cronjob-for-scheduled-reboot)
+  - [Setup lighttpd web server](#setup-lighttpd-web-server)
+    - [1. Prepare Raspberry Pi (again)](#1-prepare-raspberry-pi-again)
+    - [2. Install and test lighttpd](#2-install-and-test-lighttpd)
+    - [3. Install and test php mod](#3-install-php-mod)
+    - [4. Show local webserver on the 3.5" kiosk](#4-show-local-webserver-on-the-35-kiosk)
+  - [X. References](#x-references)
+
+
 ## To Do
 
 - [X] Test `/usr/share/X11/xorg.conf.d/99-fbturbo.conf` for unnecessary lines
@@ -363,12 +393,12 @@ ___
 
 > ![Example of the test site](./images/lighttpd_thisIsATest.png)
 
-### 3. Install php mod
+### 3. Install and test php mod
 
 1. Install:
 
 ```bash
-  sudo apt-get install php7.3-fpm php7.3-mbstring php7.3-mysql php7.3-curl php7.3-gd php7.3-curl php7.3-zip php7.3-xml -y
+  sudo apt-get install -y php7.3-fpm php7.3-mbstring php7.3-mysql php7.3-curl php7.3-gd php7.3-curl php7.3-zip php7.3-xml
 ```
 
 2. Enable mods in lighttpd
