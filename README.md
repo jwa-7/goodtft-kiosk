@@ -1,6 +1,8 @@
 # Raspberry Pi & 3.5" TFT & Chromium as Kiosk
 
 > Tested with *Raspbian GNU/Linux 10 (buster)*
+>
+> Filesctructure in [/src](./src) :exclamation:
 
 ___
 
