@@ -11,7 +11,7 @@ ___
     - [2. Use privided Repository](#2-use-privided-repository)
     - [3. Configure Boot overlays](#3-configure-boot-overlays)
       - [1. Enable Interfaces](#1-enable-interfaces)
-      - [2. Add the copied boot overly to the `config.txt`](#2-add-the-copied-boot-overly-to-the-configtxt)
+      - [2. Add the copied boot overly to the config.txt](#2-add-the-copied-boot-overly-to-the-configtxt)
     - [4. Configure command line](#4-configure-command-line)
     - [5. Reboot the Raspberry Pi](#5-reboot-the-raspberry-pi)
     - [6. Enable Interfaces](#6-enable-interfaces)
@@ -29,10 +29,11 @@ ___
   - [Setup lighttpd web server](#setup-lighttpd-web-server)
     - [1. Prepare Raspberry Pi (again)](#1-prepare-raspberry-pi-again)
     - [2. Install and test lighttpd](#2-install-and-test-lighttpd)
-    - [3. Install and test php mod](#3-install-php-mod)
+    - [3. Install and test php mod](#3-install-and-test-php-mod)
     - [4. Show local webserver on the 3.5" kiosk](#4-show-local-webserver-on-the-35-kiosk)
   - [X. References](#x-references)
 
+___
 
 ## To Do
 
@@ -99,7 +100,7 @@ ___
 
 #### 2. Add the copied boot overly to the `config.txt`
 
-- Open `/boot/config.txt` with a text editor (e.g. vi or nano) and
+1. Open `/boot/config.txt` with a text editor (e.g. vi or nano) and
 add the following at the end:
 
 ```
@@ -107,7 +108,7 @@ add the following at the end:
   dtoverlay=tft35a:rotate=270
 ```
 
-- Adjust Overscan:
+2. Adjust Overscan:
 
 ```
   # uncomment this if your display has a black border of unused pixels visible
@@ -122,7 +123,7 @@ add the following at the end:
   #overscan_bottom=16
 ```
 
-- Also add the following if needed:
+3. Also add the following if needed:
 
 ```
   # Interface options
@@ -304,7 +305,7 @@ Section "ServerLayout"
 EndSection
 ```
 
-3. Install evdev driver
+3. Install the evdev driver
 
 ```bash
   sudo apt-get install -y xserver-xorg-input-evdev
@@ -365,19 +366,19 @@ ___
   sudo apt-get install lighttpd
 ```
 
-4. Create `index.html` in the `/var/www/html/` directory if it's not existing
+2. Create `index.html` in the `/var/www/html/` directory if it's not existing
 
 ```bash
   touch /var/www/html/index.html
 ```
 
-5. Open `/var/www/html/index.html` with a text editor (e.g. vi or nano) and add the following code for testing purposes:
+3. Open `/var/www/html/index.html` with a text editor (e.g. vi or nano) and add the following code for testing purposes:
 
 ```html
   <h1>This is a TEST!</h1>
 ```
 
-6. Get your hostname or ip adress
+4. Get your hostname or ip adress
 
     - IP Adress: Look for `eth0` or `wlan0`
 
@@ -391,7 +392,7 @@ ___
       hostname -I
     ```
 
-3. Access that host/ip via a web browser from a device in the same network and hope it's showing the `This is a TEST!`-Heading :pray:
+5. Access that host/ip via a web browser from a device in the same network and hope it's showing the `This is a TEST!`-Heading :pray:
 
 > ![Example of the test site](./images/lighttpd_thisIsATest.png)
 
