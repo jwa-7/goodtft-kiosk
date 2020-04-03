@@ -398,6 +398,21 @@ ___
 
 > ![Example of the test site](./images/lighttpd_thisIsATest.png)
 
+6. Adjust rights for `/var/www/html/` so pi-user can edit files via sftp
+
+```bash
+  sudo groupadd www-data
+  sudo usermod -G www-data -a pi
+  sudo chown -R www-data:www-data /var/www/html
+  sudo chmod -R 775 /var/www/html
+```
+
+7. Reload lighttpd
+
+```bash
+  sudo service lighttpd force-reload
+```
+
 ### 3. Install and test php mod
 
 1. Install:
