@@ -43,9 +43,9 @@ disable_overscan=0
 #arm_freq=800
 
 # Uncomment some or all of these to enable the optional hardware interfaces
-dtparam=i2c_arm=on
+#dtparam=i2c_arm=on
 #dtparam=i2s=on
-dtparam=spi=on
+#dtparam=spi=on
 
 # Uncomment this to enable infrared communication.
 #dtoverlay=gpio-ir,gpio_pin=17
@@ -65,22 +65,14 @@ max_framebuffers=2
 #dtoverlay=vc4-fkms-v3d
 #enable_uart=1
 
+# Inserted:
 # Enable the TFT LCD by applying the appropriate boot overlay. This overlay is
 # provided by the LCD-show project and must be copied over to the /boot/overlay
 # directory.
 #
 # See: https://github.com/goodtft/LCD-show
 dtoverlay=tft35a:rotate=270
-#dtoverlay=mhs35:rotate=270
 
-# Test from MHS35-show
-#hdmi_force_hotplug=1
 dtparam=i2c_arm=on
 dtparam=spi=on
 enable_uart=1
-#dtoverlay=mhs35:rotate=90
-#hdmi_group=2
-#hdmi_mode=1
-#hdmi_mode=87
-#hdmi_cvt 480 320 60 6 0 0 0
-#hdmi_drive=2
