@@ -418,7 +418,7 @@ ___
 1. Install:
 
 ```bash
-  sudo apt-get install -y php7.3-fpm php7.3-mbstring php7.3-mysql php7.3-curl php7.3-gd php7.3-curl php7.3-zip php7.3-xml
+  sudo apt-get install -y php7.3-fpm php7.3-mbstring php7.3-mysql php7.3-curl php7.3-gd php7.3-curl php7.3-zip php7.3-xml php7.3-soap
 ```
 
 2. Enable mods in lighttpd
