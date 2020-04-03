@@ -46,7 +46,8 @@ ___
     - Install as?
       - [X] Bare metal (kiosk will use localhost)
       - Container (Docker)
-  - [ ] FTP-Server
+  - [X] FTP-Server
+    - Using sftp (ssh)
 - [X] Cron Reboot every day
   - [Cron Setup](http://www.vk3erw.com/index.php/16-software/58-raspberry-pi-how-to-periodic-reboot-via-cron)
 - [ ] \(Optional) Add good powersaving options (screen only)
