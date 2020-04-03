@@ -13,7 +13,7 @@ ___
     - [2. Use privided Repository](#2-use-privided-repository)
     - [3. Configure Boot overlays](#3-configure-boot-overlays)
       - [1. Enable Interfaces](#1-enable-interfaces)
-      - [2. Add the copied boot overly to the config.txt](#2-add-the-copied-boot-overly-to-the-configtxt)
+      - [2. Add the copied boot overly to the `config.txt`](#2-add-the-copied-boot-overly-to-the-configtxt)
     - [4. Configure command line](#4-configure-command-line)
     - [5. Reboot the Raspberry Pi](#5-reboot-the-raspberry-pi)
     - [6. Enable Interfaces](#6-enable-interfaces)
@@ -407,7 +407,7 @@ ___
   sudo chmod -R 775 /var/www/html
 ```
 
-7. Reload lighttpd
+7. Reload lighttpd (may not be required)
 
 ```bash
   sudo service lighttpd force-reload
