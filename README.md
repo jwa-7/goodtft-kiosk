@@ -144,7 +144,7 @@ and add the following at the end of the line:
   fbcon=map:10 fbcon=font:ProFont6x11
 ```
 
-### 5. Reboot the Raspberry Pi
+### 5. Reboot the Raspberry Pi (optional)
 
 ```bash
   sudo reboot
@@ -211,6 +211,7 @@ sudo apt-get install -y --no-install-recommends chromium-browser
 
 ```bash
   chromium-browser --noerrdialogs --disable-infobars --incognito --touch-events --kiosk $KIOSK_URL
+  #chromium-browser --noerrdialogs --disable-infobars --incognito --touch-events --disable-translate --disable-features=TranslateUI --kiosk $KIOSK_URL
 ```
 
 ### 9. Edit Openbox env
@@ -238,6 +239,10 @@ sudo apt-get install -y --no-install-recommends chromium-browser
 2. Open `~/.bash_profile` with a text editor (e.g. vi or nano) and add the following at the end of the file:
 
 ```
+  if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+  fi
+
   [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx -- -nocursor
 ```
 
@@ -320,26 +325,38 @@ EndSection
 
 ### 12. Configure Cronjob for scheduled reboot
 
-1. Create a cron file `scheduledreboots` in `/etc/cron.d/`
+1. Open the _root_ crontab with `sudo crontab -e`
 
-```bash
-  touch /etc/cron.d/scheduledreboots
-```
-
-2. Open `/etc/cron.d/scheduledreboots` with a text editor (e.g. vi or nano) and add the following:
+2. Add the following entry in a new line of the file
 
 ```
   # m h dom mon dow user command
-  30 3 * * * root /sbin/shutdown -r now
+  30 3 * * * sudo /sbin/shutdown -r now
 ```
 
-- The Raspberry will now restart every night at 3:30am
+3. Exit the editor to automatically install the new crontab-file
 
-3. Reboot the Raspberry Pi to make sure *Cron* picked up the new job file.
-
-```bash
-  sudo reboot
-```
+Alternative variant:
+> 1. Create a cron file `scheduledreboots` in `/etc/cron.d/`
+>
+> ```bash
+>  touch /etc/cron.d/scheduledreboots
+>```
+>
+>2. Open `/etc/cron.d/scheduledreboots` with a text editor (e.g. vi or nano) and add >the following:
+>
+>```
+>  # m h dom mon dow user command
+>  30 3 * * * sudo /sbin/shutdown -r now
+>```
+>
+>- The Raspberry will now restart every night at 3:30am
+>
+>3. Reboot the Raspberry Pi to make sure *Cron* picked up the new job file.
+>
+>```bash
+>  sudo reboot
+>```
 
 - The Raspberry Pi basic configuration ends after the reboot. In the next steps a local webserver will be installed, so it doesn't rely on an internet connection.
 
