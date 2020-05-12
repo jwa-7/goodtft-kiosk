@@ -39,13 +39,13 @@ ___
 
 ## To Do
 
-- [X] Test `/usr/share/X11/xorg.conf.d/99-fbturbo.conf` for unnecessary lines
+- [ ] Test `/usr/share/X11/xorg.conf.d/99-fbturbo.conf` for unnecessary lines
+- [X] As Container (Docker) (undocumented)
 - [X] Local web-server
   - Lighttpd
     - \+ PHP
     - Install as?
       - [X] Bare metal (kiosk will use localhost)
-      - Container (Docker)
   - [X] FTP-Server
     - Using sftp (ssh)
 - [X] Cron Reboot every day
